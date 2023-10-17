@@ -12,7 +12,7 @@ WORKDIR ${HOME}
 
 USER root
 RUN apt-get update
-RUN apt-get install -y curl
+RUN apt-get install -y curl tar wget
 
 ENV \
   # Enable detection of running in a container
@@ -89,6 +89,12 @@ RUN dotnet interactive jupyter install
 
 # Enable telemetry once we install jupyter for the image
 ENV DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=false
+
+RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.3-linux-x86_64.tar.gz
+RUN tar zxvf julia-1.9.3-linux-x86_64.tar.gz
+
+ENV PATH="${PATH}:${HOME}/julia-1.9.3/bin"
+RUN julia -E 'using Pkg; pkg"add Plots SpecialFunctions Latexify"'
 
 # Set root to notebooks
 WORKDIR ${HOME}/notebooks/
