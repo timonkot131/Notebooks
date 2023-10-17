@@ -94,7 +94,7 @@ RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.3-linux-
 RUN tar zxvf julia-1.9.3-linux-x86_64.tar.gz
 
 ENV PATH="${PATH}:${HOME}/julia-1.9.3/bin"
-RUN julia -E 'using Pkg; pkg"add Plots SpecialFunctions Latexify"'
+RUN julia -E 'using Pkg; pkg"add Plots SpecialFunctions IJulia Latexify"'
 
 # Set root to notebooks
 WORKDIR ${HOME}/notebooks/
